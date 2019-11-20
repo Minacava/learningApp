@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Card from "./components/Card";
 import { Ionicons } from "@expo/vector-icons";
 import Logo from "./components/Logo";
+import Course from "./components/Course";
 
 export default function App() {
   return (
@@ -29,12 +30,11 @@ export default function App() {
               paddingTop: 30
             }}
             horizontal={true}
+            showsHorizontalScrollIndicator={false}
           >
-            <Logo
-              image={require("./assets/logo-framerx.png")}
-              text="Framer X"
-            />
-            <Logo image={require("./assets/logo-figma.png")} text="Figma" />
+            {logo.map((logo, index) => (
+              <Logo key={index} image={logo.image} text={logo.text} />
+            ))}
           </ScrollView>
           <SubTitle>Continue Learning</SubTitle>
           <ScrollView
@@ -42,28 +42,30 @@ export default function App() {
             style={{ paddingBottom: 30 }}
             showsHorizontalScrollIndicator={false}
           >
-            <Card
-              title="Styled Components"
-              image={require("./assets/background2.jpg")}
-              caption="React Native"
-              logo={require("./assets/logo-react.png")}
-              subtitle="5 of 12 section"
-            />
-            <Card
-              title="Styled Components"
-              image={require("./assets/background1.jpg")}
-              caption="React Native"
-              logo={require("./assets/logo-react.png")}
-              subtitle="5 of 12 section"
-            />
-            <Card
-              title="Styled Components"
-              image={require("./assets/background3.jpg")}
-              caption="React Native"
-              logo={require("./assets/logo-react.png")}
-              subtitle="5 of 12 section"
-            />
+            {cards.map((cards, index) => (
+              <Card
+                key={index}
+                title={cards.title}
+                image={cards.image}
+                caption={cards.caption}
+                logo={cards.logo}
+                subtitle={cards.subtitle}
+              />
+            ))}
           </ScrollView>
+          <SubTitle>Popular Courses</SubTitle>
+          {courses.map((course, index) => (
+            <Course
+              key={index}
+              image={course.image}
+              title={course.title}
+              subtitle={course.subtitle}
+              logo={course.logo}
+              author={course.author}
+              avatar={course.avatar}
+              caption={course.caption}
+            />
+          ))}
         </ScrollView>
       </SafeAreaView>
     </Container>
@@ -112,3 +114,101 @@ const SubTitle = styled.Text`
   margin-top: 20px;
   text-transform: uppercase;
 `;
+
+const logo = [
+  {
+    image: require("./assets/logo-framerx.png"),
+    text: " Framer X "
+  },
+  {
+    image: require("./assets/logo-figma.png"),
+    text: " Figma "
+  },
+  {
+    image: require("./assets/logo-studio.png"),
+    text: " Studio "
+  },
+  {
+    image: require("./assets/logo-react.png"),
+    text: " React "
+  },
+  {
+    image: require("./assets/logo-swift.png"),
+    text: " Swift "
+  },
+  {
+    image: require("./assets/logo-sketch.png"),
+    text: " Sketch "
+  }
+];
+
+const cards = [
+  {
+    title: "React Native for Designers",
+    image: require("./assets/background11.jpg"),
+    subtitle: "React Native",
+    caption: " 1 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Style Components",
+    image: require("./assets/background12.jpg"),
+    subtitle: "React Native",
+    caption: " 2 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Props and Icons",
+    image: require("./assets/background13.jpg"),
+    subtitle: "React Native",
+    caption: " 3 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Static Data and Loop",
+    image: require("./assets/background14.jpg"),
+    subtitle: "React Native",
+    caption: " 4 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  }
+];
+
+const courses = [
+  {
+    title: "Prototype in InVision Studio",
+    subtitle: "10 sections",
+    image: require("./assets/background13.jpg"),
+    logo: require("./assets/logo-studio.png"),
+    author: "Meng To",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Design and interactive prototype"
+  },
+  {
+    title: "React for Designers",
+    subtitle: "12 sections",
+    image: require("./assets/background11.jpg"),
+    logo: require("./assets/logo-react.png"),
+    author: "Meng To",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Learn to design and code a React site"
+  },
+  {
+    title: "Design and Code with Framer X",
+    subtitle: "10 sections",
+    image: require("./assets/background14.jpg"),
+    logo: require("./assets/logo-framerx.png"),
+    author: "Meng To",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Create powerful design and code components for your app"
+  },
+  {
+    title: "Design System in Figma",
+    subtitle: "10 sections",
+    image: require("./assets/background6.jpg"),
+    logo: require("./assets/logo-figma.png"),
+    author: "Meng To",
+    avatar: require("./assets/avatar.jpg"),
+    caption:
+      "Complete guide to designing a site using a collaborative design tool"
+  }
+];
