@@ -5,16 +5,18 @@ import Card from "./components/Card";
 import { Ionicons } from "@expo/vector-icons";
 import Logo from "./components/Logo";
 import Course from "./components/Course";
+import Menu from "./components/Menu";
 
 export default function App() {
   return (
     <Container>
+      <Menu />
       <SafeAreaView>
         <ScrollView>
           <TitleBar>
             <Avatar source={require("./assets/avatar.jpg")} />
             <Title>Welcome back, </Title>
-            <Name>Meng</Name>
+            <Name>Mina</Name>
             <Ionicons
               name="ios-notifications"
               size={32}
