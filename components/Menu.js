@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Animated, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import MenuItem from "../components/MenuItem";
 const screenHeight = Dimensions.get("window").height;
 
 class Menu extends React.Component {
@@ -28,7 +28,7 @@ class Menu extends React.Component {
         <Cover>
           <Image source={require("../assets/background2.jpg")} />
           <Title>Mina</Title>
-          <Subtitle>Designer at Design-Code</Subtitle>
+          <Subtitle>Frontend at BouncingShield</Subtitle>
         </Cover>
         <TouchableOpacity
           onPress={this.toggleMenu}
@@ -44,7 +44,16 @@ class Menu extends React.Component {
             <Ionicons name="ios-close" size={44} color="#546bfb" />
           </CloseView>
         </TouchableOpacity>
-        <Content />
+        <Content>
+          {items.map((item, index) => (
+            <MenuItem
+              key={index}
+              icon={item.icon}
+              title={item.title}
+              text={item.text}
+            />
+          ))}
+        </Content>
       </AnimatedContainer>
     );
   }
@@ -77,6 +86,7 @@ const Cover = styled.View`
 const Content = styled.View`
   height: ${screenHeight};
   background: #f0f3f5;
+  padding: 50px;
 `;
 const Image = styled.Image`
   position: absolute;
@@ -93,3 +103,26 @@ const Subtitle = styled.Text`
   color: rgba(255, 255, 255, 0.5);
   margin-top: 8px;
 `;
+
+const items = [
+  {
+    icon: "ios-settings",
+    title: "Account",
+    text: "settings"
+  },
+  {
+    icon: "ios-card",
+    title: "Billing",
+    text: "payments"
+  },
+  {
+    icon: "ios-compass",
+    title: "Learn React",
+    text: "start course"
+  },
+  {
+    icon: "ios-exit",
+    title: "Log out",
+    text: "see you soon!"
+  }
+];
