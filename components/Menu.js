@@ -4,6 +4,20 @@ import { Animated, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MenuItem from "../components/MenuItem";
 const screenHeight = Dimensions.get("window").height;
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { action: state.action };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    closeMenu: () =>
+      dispatch({
+        type: "CLOSE_MENU"
+      })
+  };
+}
 
 class Menu extends React.Component {
   state = {
@@ -11,15 +25,22 @@ class Menu extends React.Component {
   };
 
   componentDidMount() {
-    Animated.spring(this.state.top, {
-      toValue: 0
-    }).start();
+    this.toggleMenu();
   }
-
+  componentDidUpdate() {
+    this.toggleMenu();
+  }
   toggleMenu = () => {
-    Animated.spring(this.state.top, {
-      toValue: screenHeight
-    }).start();
+    if (this.props.action == "openMenu") {
+      Animated.spring(this.state.top, {
+        toValue: 0
+      }).start();
+    }
+    if (this.props.action == "closeMenu") {
+      Animated.spring(this.state.top, {
+        toValue: screenHeight
+      }).start();
+    }
   };
 
   render() {
@@ -31,7 +52,7 @@ class Menu extends React.Component {
           <Subtitle>Frontend at BouncingShield</Subtitle>
         </Cover>
         <TouchableOpacity
-          onPress={this.toggleMenu}
+          onPress={this.props.closeMenu}
           style={{
             position: "absolute",
             top: 120,
@@ -58,7 +79,7 @@ class Menu extends React.Component {
     );
   }
 }
-export default Menu;
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
 
 const Container = styled.View`
   position: absolute;
