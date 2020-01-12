@@ -3,9 +3,15 @@ import styled from "styled-components";
 import { Animated, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MenuItem from "../components/MenuItem";
-const screenHeight = Dimensions.get("window").height;
 import { connect } from "react-redux";
 
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
+var cardWidth = screenWidth;
+if (screenWidth > 500) {
+  cardWidth = 500;
+}
 function mapStateToProps(state) {
   return { action: state.action };
 }
@@ -33,9 +39,10 @@ class Menu extends React.Component {
   toggleMenu = () => {
     if (this.props.action == "openMenu") {
       Animated.spring(this.state.top, {
-        toValue: 0
+        toValue: 54
       }).start();
     }
+
     if (this.props.action == "closeMenu") {
       Animated.spring(this.state.top, {
         toValue: screenHeight
@@ -84,10 +91,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Menu);
 const Container = styled.View`
   position: absolute;
   background: white;
+  width: ${cardWidth};
+  align-self: center;
   height: 100%;
-  width: 100%;
   z-index: 100;
+  border-radius: 10px;
+  overflow: hidden;
 `;
+
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
 const CloseView = styled.View`
   width: 44px;
